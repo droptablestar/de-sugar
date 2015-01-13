@@ -1,0 +1,2 @@
+(fun x -> fun y -> fun z -> fun a -> a) 1
+

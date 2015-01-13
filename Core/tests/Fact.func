@@ -1,0 +1,7 @@
+((fun x -> x x)
+   (fun r ->
+    (fun n ->
+     if n=1 then 1
+     else n * (r r (n-1))
+     end)))
+  6

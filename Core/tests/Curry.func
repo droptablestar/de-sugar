@@ -1,0 +1,1 @@
+(fun x -> fun y -> fun z -> z + y + x) 1 2 3

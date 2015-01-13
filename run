@@ -1,0 +1,2 @@
+#!/bin/bash
+java -Xmx1G -Xss32m -jar rascal-0.7.0.jar

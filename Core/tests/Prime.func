@@ -1,0 +1,11 @@
+(fun x -> x x)
+  (fun r ->
+   (fun n ->
+    (fun i ->
+     if ((n%i) = 0) then 0
+     else
+       if (i>=(n/2)) then 1
+       else r r n (i+1)
+       end
+     end)))
+  8 2

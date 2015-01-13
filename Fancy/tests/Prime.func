@@ -1,0 +1,11 @@
+let (isPrime) =
+  (fun (n,i) ->
+   if ((n%i) = 0) then 0
+   else if (i>=(n/2)) then 1
+   else isPrime(n,(i+1))
+   end)
+end
+;;
+let (x) = (2) in
+    isPrime(5,x)
+end
