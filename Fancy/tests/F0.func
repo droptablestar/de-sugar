@@ -1,1 +1,6 @@
-(fun x,y -> x * y) 4 5
+((fun x -> x x)
+  (fun r,n ->
+   if n=1 then 1
+   else n * r r (n-1)
+   end))
+  5

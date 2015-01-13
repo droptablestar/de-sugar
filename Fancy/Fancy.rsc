@@ -13,7 +13,6 @@ syntax Exp =
     var: Ident
     | nat: Natural 
     | left app: Exp Exp
-    | left let: "let" {Ident ","}+ "=" {Exp ","}+ "in" Exp
     | bracket "(" Exp ")"
     | cond: "if" Exp "then" Exp ("else if" Exp "then" Exp)* "else" Exp "end"
 
@@ -24,7 +23,7 @@ syntax Exp =
     > left add: Exp "+" Exp 
     | left sub: Exp "-" Exp 
 
-    > non-assoc eq: Exp "==" Exp 
+    > non-assoc eq: Exp "=" Exp 
     | non-assoc gt: Exp "\>" Exp 
     | non-assoc lt: Exp "\<" Exp 
     | non-assoc geq: Exp "\>=" Exp 
@@ -32,4 +31,5 @@ syntax Exp =
 
     > left seq: Exp ";" Exp
     > right func: "fun" {Ident ","}+ "-\>" Exp
+    | left let: "let" {Ident ","}+ "=" {Exp ","}+ "in" Exp
     ;

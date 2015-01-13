@@ -1,3 +1,0 @@
-;;
-let (x) = (4) in x + 5 end;
-let (x,y) = (3,4) in x + y end
