@@ -5,6 +5,7 @@ import lang::Func::Compiler;
 compile(|file:///Users/jreese/Documents/uni/umd/pa_631/proj14/src/lang/Func/programs/F0.func|);
 parse(|cwd:///Core/tests/F0.func|);
 eval(|cwd:///Core/tests/F0.func|, ());
+compile(|cwd:///Fancy/tests/F0.func|);
 
 // long outputs
 import IO;

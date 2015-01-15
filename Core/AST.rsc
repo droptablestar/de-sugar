@@ -6,7 +6,7 @@ data Exp =
     var(str name)
     | nat(int nat)
     | cond(Exp cond, Exp then, Exp otherwise)
-    | func(str formal, Exp body)
+    | func(str id, Exp body)
     | app(Exp fun, Exp body)
     | seq(Exp lhs, Exp rhs)
 

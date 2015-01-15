@@ -12,8 +12,8 @@ start syntax Prog = prog: Exp LAYOUTLIST;
 syntax Exp =
     var: Ident
     | nat: Natural 
-    | left app: Exp Exp
     | bracket "(" Exp ")"
+    > left app: Exp Exp
     | cond: "if" Exp "then" Exp "else" Exp "end"
 
     > left mul: Exp "*" Exp 
@@ -30,5 +30,5 @@ syntax Exp =
     | non-assoc leq: Exp "\<=" Exp
 
     > left seq: Exp ";" Exp
-    > right func: "fun" Ident "-\>" Exp
+    > func: "fun" Ident "-\>" Exp
     ;

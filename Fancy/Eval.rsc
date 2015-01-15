@@ -9,6 +9,8 @@ import IO;
 // maps bound variables to expressions
 alias Env = map[str, Exp];
 
+public tuple[Exp, Env] eval(Prog p, Env env) = eval(p.exp, env);
+
 public tuple[Exp, Env] eval(loc l, Env env) {
     p = load(l);
     return eval(p.exp, env);
