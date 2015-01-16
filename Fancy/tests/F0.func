@@ -1,4 +1,1 @@
-if 1 then 2
-else if 2 then 3
-else 10
-end
+let x,y = 1000,2 in x

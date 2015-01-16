@@ -50,8 +50,12 @@ public Core::AST::Exp comp(app(Fancy::AST::Exp e1, Fancy::AST::Exp e2)) =
             app(comp(e1), comp(e2));
 
 // *** lets *** //
-public Core::AST::Exp comp(let([str v], [Fancy::AST::Exp e], Fancy::AST::Exp body)) =
-            app(func(v,comp(body)),comp(e));
+public Core::AST::Exp comp(let([str v], [Fancy::AST::Exp e], Fancy::AST::Exp body)) {
+    println("v: <v>\ne: <e>\nbody:<body>");
+    return app(func(v,comp(body)),comp(e));
+}
+public Core::AST::Exp comp(let([*str vn, str v0], [*Fancy::AST::Exp en, Fancy::AST::Exp e0], Fancy::AST::Exp body)) =
+            app(comp(let(vn,en,func([v0],body))),comp(e0));
 //TODO: would be nice to have lets with more than one variable (e.g. let x,y = 1,2 in x)
 
 // *** cond *** //
