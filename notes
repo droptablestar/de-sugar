@@ -1,0 +1,9 @@
+2/12/15:
+* Verification of original translator / interpreters?
+* Restricting the set of input programs?
+  - Large programs produce large trees.
+  - How to restrict the translation functions that are generated?
+  - Similar input programs will generate similar translation funcs.
+* Can trees be walked concurrently? Generate parameters and tranformation
+  expression simultaneously?
+* How to make abstract enough? How to tell if abstract enough?

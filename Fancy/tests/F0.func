@@ -1,1 +1,1 @@
-let x,y = 1000,2 in x
+let x,y = 1,2 in 3

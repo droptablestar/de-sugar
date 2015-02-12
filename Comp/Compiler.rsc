@@ -70,4 +70,3 @@ public Core::AST::Prog compile(loc l) {
     println("Core:  <Core::Eval::eval(cp,())[0]>");
     return cp;
 }
-
