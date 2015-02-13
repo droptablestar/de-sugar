@@ -13,6 +13,7 @@ import IO;
 import Type;
 import List;
 import String;
+import Node;
 
 str CORE_EXP_TYPE = "Core::AST::Exp";
 str FANCY_EXP_TYPE = "Fancy::AST::Exp";
@@ -30,46 +31,40 @@ public Core::AST::Exp comp(Fancy::AST::var(x)) = var(x);
 
 str fun_template = "public <CORE_EXP_TYPE> comp(";
 
-private tuple[str,int] generate_list_p(&T e, int count) {
-    println("GENERATE_LIST_P: e: <e> typeOf(e): <typeOf(e)>");
-    switch (typeOf(e)) {
+private tuple[str,int] generate_exp_p(&T e, int count) {
+    println("e: <e> typeOf(e): <typeOf(e)>");
+    switch (e) {
         // TODO: Would REALLY like to not have to match on each type...
-        case Symbol _: \adt("Exp",_): {
-            println("MATCHED \\adt");
-            return <"<FANCY_EXP_TYPE> e<count>",count+1>;
+        // Is that possible?
+        case list[&T] L: {
+            println("L: <L>");
+            if (size(L) == 0) return <"[]",count>;
+            else if (size(L) == 1) {
+                <t,count> = generate_exp_p(L[0],count);
+                return <"[<t>]",count>;
+            }
+            else {
+                <t0,count> = generate_exp_p(L[0],count);
+                <t1,count> = generate_exp_p(L[1],count);
+                return <"[<t0>, *<t1>]",count>;
+            }
         }
-        case \list
+        case tuple[&T, &T] T: {
+            println("T: <T>");
+            <t0,count> = generate_exp_p(T[0],count);
+            <t1,count> = generate_exp_p(T[1],count);
+            return <"\<<t0>, <t1>\>",count>;
+        }
+        // This isn't really &T...
+        case &T n(*&T _): {
+            println("MATCHED \\adt(\"Exp\")");
+            return <"<FANCY_EXP_TYPE> e<count>", count+1>;
+        }
         case \str: {
             println("MATCHED \\str");
             return <"str e<count>",count+1>;
         }
-        default: { println("<typeOf(exp)> NOT IMPLEMENTED!"); return <"",count>; }
-    }
-}
-
-// ****** THE ORDER OF THESE FUNCTIONS MATTER! ****** //
-// These are used to generate parameters for lists
-private tuple[str,int] synthesise_p([&T exp], int count) {
-    <tmp,count> = generate_list_p(exp,count);
-    return <"[<tmp>]",count>;
-}
-
-private tuple[str,int] synthesise_p([&T exp0, *&T expn], int count) {
-    <tmp0,count> = generate_list_p(exp0,count);
-    <tmp1,count> = generate_list_p(expn,count);
-    return <"[<tmp0>, *<tmp1>]",count>;
-}
-// ************************************************** //
-
-private tuple[str,int] generate_exp_p(&T e, int count) {
-    // Right now, this is either an Exp node or something else (list) if it's
-    // something else dispatch to the synthesise_p function that can handle that
-    println("e: <e> typeOf(e): <typeOf(e)>");
-    switch (typeOf(e)) {
-        case Symbol _: \adt("Exp",_):
-            return <"<FANCY_EXP_TYPE> e<count>",count+1>;
-        case _:
-            return <tmp0,count> = synthesise_p(e, count);
+        default: { println("DEFAULT. SOMETHING FAILED IN GENERATE."); return <"",count>; }
     }
 }
 
@@ -82,15 +77,26 @@ private tuple[str,int] synthesise_p(Fancy::AST::Exp exp, int count) {
             return <"",0>;
         }
         case &T n(&T e0, &T e1): {
+            println("e0: <e0> typeOf(e0)\ne1: <e1>\n");
             <tmp0,count> = generate_exp_p(e0,count);
             <tmp1,count> = generate_exp_p(e1,count);
             ret += "<FANCY_EXP_TYPE> <n>(<tmp0>, <tmp1>)";
         }
         case &T n(&T e0, &T e1, &T e2): {
+            println("n: <n>");
+            println("e0: <e0> typeOf(e0)\ne1: <e1>\ne2: <e2>\n");
             <tmp0,count> = generate_exp_p(e0,count);
             <tmp1,count> = generate_exp_p(e1,count);
             <tmp2,count> = generate_exp_p(e2,count);
             ret += "<FANCY_EXP_TYPE> <n>(<tmp0>, <tmp1>, <tmp2>)";
+        }
+        case &T n(&T e0, &T e1, &T e2, &T e3): {
+            println("e0: <e0> typeOf(e0)\ne1: <e1>\ne2: <e2>\ne3: <e3>\n");
+            <tmp0,count> = generate_exp_p(e0,count);
+            <tmp1,count> = generate_exp_p(e1,count);
+            <tmp2,count> = generate_exp_p(e2,count);
+            <tmp3,count> = generate_exp_p(e3,count);
+            ret += "<FANCY_EXP_TYPE> <n>(<tmp0>, <tmp1>, <tmp2>, <tmp3>)";
         }
         default: println("!DEFAULT!");
     }

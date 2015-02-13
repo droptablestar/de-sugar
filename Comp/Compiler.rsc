@@ -58,14 +58,23 @@ public Core::AST::Exp comp(let([*str vn, str v0], [*Fancy::AST::Exp en, Fancy::A
 // *** cond *** //
 public Core::AST::Exp comp(cond(Fancy::AST::Exp cnd, Fancy::AST::Exp then, [], Fancy::AST::Exp els)) =
             cond(comp(cnd),comp(then),comp(els));
-public Core::AST::Exp comp(cond(Exp cnd0, Exp then0, [<Exp cnd1, Exp then1>, *elifs], Exp els)) =
+public Core::AST::Exp comp(cond(Fancy::AST::Exp cnd0, Fancy::AST::Exp then0,
+                                [<Fancy::AST::Exp cnd1, Fancy::AST::Exp then1>],
+                                Fancy::AST::Exp els)) =
+            cond(comp(cnd0),comp(then0),comp(cond(cnd1,then1,[],els)));
+public Core::AST::Exp comp(cond(Fancy::AST::Exp cnd0, Fancy::AST::Exp then0,
+                                [<Fancy::AST::Exp cnd1, Fancy::AST::Exp then1>,
+                                 *tuple[Fancy::AST::Exp, Fancy::AST::Exp] elifs],
+                                Fancy::AST::Exp els)) =
             cond(comp(cnd0),comp(then0),comp(cond(cnd1,then1,elifs,els)));
 
 // public default Exp comp(Exp e) = e;
 
 public Core::AST::Prog compile(loc l) {
     p = load(l);
+    println("EXP: <p.exp>");
     cp = Core::AST::prog(comp(p.exp));
+    
     println("Fancy: <Fancy::Eval::eval(p, ())[0]>");
     println("Core:  <Core::Eval::eval(cp,())[0]>");
     return cp;

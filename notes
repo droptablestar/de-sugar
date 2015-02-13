@@ -6,4 +6,6 @@
   - Similar input programs will generate similar translation funcs.
 * Can trees be walked concurrently? Generate parameters and tranformation
   expression simultaneously?
-* How to make abstract enough? How to tell if abstract enough?
+*** How to make abstract enough? How to tell if abstract enough? ***
+* Depth of trees? Root node and children?
+  - Right now for parameters just look at root and children 

@@ -1,0 +1,9 @@
+2/13/15:
+* Working ok for funcs, lets, and else if (with 0 or 1 elifs)
+* need to figure out how to rewrite lists of tuples for multiple elifs
+
+2/12/15:
+* synthesise function for parameters generalised to matching on
+  generic types of nodes and different number of node parameters.
+* TODO: work on generator* functions and try to get rid of the types
+  and figure out why things are matching in funky ways. 

@@ -1,1 +1,5 @@
-let x,y = 1,2 in 3
+if a then b
+else if c then d
+else if f then g
+else e
+end
