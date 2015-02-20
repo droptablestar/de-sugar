@@ -16,19 +16,24 @@ syntax Exp =
     > left app: Exp Exp
     | cond: "if" Exp "then" Exp "else" Exp "end"
 
-    > left mul: Exp "*" Exp 
-    | non-assoc div: Exp "/" Exp 
-    | non-assoc md: Exp "%" Exp 
+    > left (
+        left mul: Exp "*" Exp 
+        | non-assoc div: Exp "/" Exp 
+        | left md: Exp "%" Exp
+            )
 
-    > left add: Exp "+" Exp 
-    | left sub: Exp "-" Exp 
-
-    > non-assoc eq: Exp "=" Exp 
-    | non-assoc gt: Exp "\>" Exp 
-    | non-assoc lt: Exp "\<" Exp 
-    | non-assoc geq: Exp "\>=" Exp 
-    | non-assoc leq: Exp "\<=" Exp
-
+    > left (
+        left add: Exp "+" Exp 
+        | left sub: Exp "-" Exp
+            )
+    
+    > non-assoc (
+        non-assoc eq: Exp "=" Exp 
+        | non-assoc gt: Exp "\>" Exp 
+        | non-assoc lt: Exp "\<" Exp 
+        | non-assoc geq: Exp "\>=" Exp 
+        | non-assoc leq: Exp "\<=" Exp
+                 )
     > left seq: Exp ";" Exp
     > func: "fun" Ident "-\>" Exp
     ;

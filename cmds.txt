@@ -8,6 +8,8 @@ eval(|cwd:///Core/tests/F0.func|, ());
 compile(|cwd:///Fancy/tests/F0.func|);
 synthesise(|cwd:///Fancy/tests/F0.func|,|cwd:///Core/tests/F0.func|);
 
+drive(|cwd:///Fancy/tests/synth|,|cwd:///Core/tests/synth|);
+
 // long outputs
 import IO;
 iprintToFile(|cwd:///file.txt|,parse(|cwd:///Core/tests/F0.func|));
